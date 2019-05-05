@@ -186,7 +186,7 @@ namespace CamundaUtils {
         }
 
         private void OpenProcessButton_Click(object sender, RoutedEventArgs e) {
-            Process.Start(_settings.GetCurrentUrl());
+            Process.Start(_settings.GetCurrentProcessUrl());
         }
 
         private async void HappyPathButton_Click(object sender, RoutedEventArgs e) {
