@@ -9,7 +9,7 @@ namespace CamundaUtils.Settings {
 
         public string ExecutorId { get; set; }
 
-        public string ProcessId { get; set; }
+        public Guid ProcessId { get; set; }
         public Environment Environment { get; set; } = Environment.Test;
         public QualityControlResult QualityControlResult { get; set; } = QualityControlResult.Good;
 

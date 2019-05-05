@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using CamundaUtils.Connectors;
 using CamundaUtils.Core;
 using CamundaUtils.Settings;
+using CamundaUtils.Stubs;
 using Environment = CamundaUtils.Settings.Environment;
 
 namespace CamundaUtils {
@@ -22,7 +22,7 @@ namespace CamundaUtils {
         public MainWindow() {
             InitializeComponent();
             _settings = Settings.Settings.FromConfig();
-            _connector = new CamundaConnector(_settings);
+            _connector = new CamundaConnector(_settings, new BpmnStub(), new TaskProjectionStub());
             InitializeFromSettings(_settings);
         }
 
@@ -62,7 +62,7 @@ namespace CamundaUtils {
         private void RegisterEventSenders() {
             _eventSenders[nameof(LaunchTaskButton)] = async () => {
                 _settings.ProcessId = await _connector.LaunchTask();
-                ProcessIdTextBox.Text = _settings.ProcessId;
+                ProcessIdTextBox.Text = _settings.ProcessId.ToString();
             };
 
             _eventSenders[nameof(ExecutorSetButton)] = async () => { await _connector.SetExecutor(); };
@@ -89,7 +89,12 @@ namespace CamundaUtils {
 
             switch(tb.Name) {
                 case nameof(ProcessIdTextBox):
-                    _settings.ProcessId = tb.Text;
+                    if(!Guid.TryParse(tb.Text, out var processId)) {
+                        ShowError("Enter valid processId", "Parse Error");
+                        return;
+                    }
+                    
+                    _settings.ProcessId = processId;
                     break;
                 case nameof(UrlProdTextBox):
                     _settings.CamundaProdUrl = tb.Text;
@@ -98,7 +103,7 @@ namespace CamundaUtils {
                     _settings.CamundaTestUrl = tb.Text;
                     break;
                 case nameof(ExecutorIdTextBox):
-                    _settings.ExecutorId = tb.Text;
+                    _settings.ExecutorId = string.IsNullOrEmpty(tb.Text) ? null : tb.Text;
                     break;
                 case nameof(ProcessVersionTextBox) when string.IsNullOrEmpty(tb.Text):
                     _settings.ProcessVersion = null;
@@ -106,7 +111,6 @@ namespace CamundaUtils {
                 case nameof(ProcessVersionTextBox): {
                     if(!uint.TryParse(tb.Text, out var processVersion)) {
                         ShowError("Enter valid version", "Parse Error");
-                        tb.Text = string.Empty;
                         return;
                     }
 
@@ -189,7 +193,7 @@ namespace CamundaUtils {
             var btn = CastTo<Button>(sender);
 
             PlayersLogTextBox.Text = "";
-            
+
             await BlockAction(btn, async () => {
                 await Player.Play(TimeSpan.FromSeconds(3),
                     s => {
@@ -208,7 +212,7 @@ namespace CamundaUtils {
                         _settings.QualityControlResult = oldQC;
                     })
                 );
-                
+
                 PlayersLogTextBox.AppendText("Happy path успешно пройден!");
             });
         }
