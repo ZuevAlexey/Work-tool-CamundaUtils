@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using CamundaUtils.Stubs;
+using Newtonsoft.Json;
 
 namespace CamundaUtils.Core {
     public class CamundaConnector {
@@ -99,7 +100,20 @@ namespace CamundaUtils.Core {
             }));
         }
 
-        private async Task<string> GetCurrentVersion() {
+        public async Task LikeComment() {
+            await _bpmn.FireNamedEvent(await CreateEventData("CommentLike", new {}));
+        }
+        
+        public async Task DislikeComment() {
+            await _bpmn.FireNamedEvent(await CreateEventData("CommentDislike", new {}));
+        }
+
+        public async Task<string> GetProjection() {
+            return JsonConvert.SerializeObject(
+                await _taskProjectionService.GetProjection(_settings.ProcessId), Formatting.Indented);
+        }
+
+        public async Task<string> GetCurrentVersion() {
             return await _taskProjectionService.GetVersion(_settings.ProcessId);
         }
 

@@ -19,12 +19,12 @@ namespace CamundaUtils.Settings {
         public QualityControlResult QualityControlResult { get; set; } = QualityControlResult.Good;
 
         public string GetCurrentProcessUrl() {
-            var url = new Uri(GetCurrentUrl());
+            var url = new Uri(GetCurrentCamundaUrl());
             var withoutLastSegment = url.AbsoluteUri.Remove(url.AbsoluteUri.Length - url.Segments.Last().Length);
             return withoutLastSegment + "app/cockpit/default/#/process-instance/c40aa0b2-6b4f-11e9-b5b6-0a580af4011d";
         }
         
-        private  string GetCurrentUrl() {
+        public string GetCurrentCamundaUrl() {
             switch(Environment) {
                 case Environment.Test:
                     return CamundaTestUrl;

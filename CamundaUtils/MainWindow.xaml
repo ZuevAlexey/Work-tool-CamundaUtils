@@ -35,12 +35,16 @@
                     <Button x:Name="TaskCancelButton" Content="Cancel Task" HorizontalAlignment="Left" Margin="20,329,0,0" VerticalAlignment="Top" Width="100" Click="Event_Button_Click" Grid.ColumnSpan="2" />
                     <Button x:Name="ChangeDataButton" Content="Change Data" HorizontalAlignment="Left" Margin="20,365,0,0" VerticalAlignment="Top" Width="100" Click="Event_Button_Click" Grid.ColumnSpan="2" />
                     <Button x:Name="CommentButton" Content="Send Comment" HorizontalAlignment="Left" Margin="20,403,0,0" VerticalAlignment="Top" Width="100" Click="Event_Button_Click" Grid.ColumnSpan="2" />
+                    <Button x:Name="LikeCommentButton" Content="Like Comment" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="Event_Button_Click" Grid.ColumnSpan="2" Margin="20,441,0,0" />
+                    <Button x:Name="DislikeCommentButton" Content="Dislike Comment" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="Event_Button_Click" Grid.ColumnSpan="2" Margin="20,483,0,0" />
                     <TextBox x:Name="ExecutorIdTextBox"  Text="" HorizontalAlignment="Left" Height="23" Margin="170,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" LostFocus ="TextBox_LostFocus" Grid.Column="1"/>
                     <Label Content="ExecutoId: " HorizontalAlignment="Left" Margin="103,141,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <RadioButton x:Name="QC_Good_RadioButton"  Content="Good" HorizontalAlignment="Left" Margin="116,295,0,0" VerticalAlignment="Top" GroupName="QualityControl" Grid.Column="1" Click="RadioButton_Click" IsChecked="True"/>
                     <RadioButton x:Name="QC_Error_RadioButton"  Content="Error" HorizontalAlignment="Left" Margin="193,295,0,0" VerticalAlignment="Top" GroupName="QualityControl" Grid.Column="1" Click="RadioButton_Click"/>
                     <RadioButton x:Name="QC_Crit_RadioButton"  Content="Crit" HorizontalAlignment="Left" Margin="270,295,0,0" VerticalAlignment="Top" GroupName="QualityControl" Grid.Column="1" Click="RadioButton_Click"/>
                     <Button x:Name="OpenProcessButton" Content="Show Process" HorizontalAlignment="Left" Margin="510,13,0,0" VerticalAlignment="Top" Width="113" Click="OpenProcessButton_Click" Grid.Column="1" />
+                    <Button x:Name="ShowProjectionButton" Content="Show Projection" HorizontalAlignment="Left" Margin="510,52,0,0" VerticalAlignment="Top" Width="113" Click="ShowProjectionButton_Click" Grid.Column="1" />
+                    <Button x:Name="TaskVersionCopyButton" Content="Copy Task Version" HorizontalAlignment="Left" Margin="510,91,0,0" VerticalAlignment="Top" Width="113" Click="TaskVersionCopyButton_Click" Grid.Column="1" />
                 </Grid>
             </TabItem>
             <TabItem Header="Happy Path">
@@ -53,6 +57,19 @@
                     </Grid.ColumnDefinitions>
                     <Button Name="HappyPathButton" Content="Run" HorizontalAlignment="Left" Margin="0,22,0,0" VerticalAlignment="Top" Width="74" Grid.Column="1" Click="HappyPathButton_Click" Grid.ColumnSpan="3"/>
                     <TextBox x:Name="PlayersLogTextBox" TextWrapping="Wrap" Grid.ColumnSpan="4" Margin="10,80,10,27"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Deploy">
+                <Grid Name="DeployGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="463*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Name="DeployButton" Content="Run" HorizontalAlignment="Left" Margin="0,22,0,0" VerticalAlignment="Top" Width="74" Grid.Column="1" Click="Deploy_Button_Click" Grid.ColumnSpan="3"/>
+                    <TextBox x:Name="DeployLogTextBox" TextWrapping="Wrap" Grid.ColumnSpan="4" Margin="10,80,10,27"/>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Settings">
